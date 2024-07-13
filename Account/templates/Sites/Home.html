@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="{% url 'account:home' %}">Home</a></li>
+                <li><a href="{% url 'account:prediction' %}">Prediction</a></li>
+                <li><a href="{% url 'account:about' %}">About</a></li>
+                <li><a href="{% url 'account:contact' %}">Contact</a></li>
+                <li class="logout-container">
+                    <a href="{% url 'account:logout' %}" class="logout-icon"><i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="center-container">
+        <div class="container__">
+            <h1>Welcome to Forex Prediction</h1>
+
+
+            <div id="additional_content">
+                <h3>Why Choose Forex Prediction?</h3>
+                <p>Forex Prediction offers advanced prediction models that can help traders make informed decisions in
+                    the
+                    volatile foreign exchange market.</p>
+                <p>Our platform provides:</p>
+                <ul>
+                    <li>Accurate predictions based on historical data analysis</li>
+                    <li>Real-time updates on market trends</li>
+                    <li>Customizable prediction models tailored to your trading preferences</li>
+                </ul>
+                <p>Join Forex Prediction today and take your trading to the next level!</p>
+            </div>
+            <a href="{% url 'account:prediction' %}" class="btn">Predict</a>
+        </div>
+    </div>
+
+    <button class="btn dark-light-button" onclick="toggleDarkLightMode()">
+        <div id="mode-toggle">
+            <i id="dark-mode-icon" class="fas fa-moon"></i>
+            <i id="light-mode-icon" class="far fa-sun" style="display:none"></i>
+        </div>
+    </button>
+
+    <script src="{% static 'script/script.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+</body>
+
+</html>

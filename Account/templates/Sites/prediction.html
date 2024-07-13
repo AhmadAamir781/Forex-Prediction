@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="{% url 'account:home' %}">Home</a></li>
+                <li><a href="{% url 'account:prediction' %}">Prediction</a></li>
+                <li><a href="{% url 'account:about' %}">About</a></li>
+                <li><a href="{% url 'account:contact' %}">Contact</a></li>
+                <li class="logout-container">
+                    <a href="{% url 'account:logout' %}" class="logout-icon"><i class="fas fa-sign-out-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="center-container">
+        <div class="container__">
+
+            <div class="loader-container" id="loader-container" style="display: none;">
+                <h2>Predicting the future of forex</h2>
+                <div class="loader"></div>
+            </div>
+            <h1>Enter Symbol and Model</h1>
+            <form method="post" action="{% url 'account:prediction' %}" onsubmit="showLoader()">
+                {% csrf_token %}
+                <label for="symbol">Symbol:</label>
+                <input type="text" id="symbol" name="symbol" value="{{ symbol }}"><br><br>
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model" value="{{ model }}"><br><br>
+                <button class="btn" type="submit">Display</button>
+            </form>
+
+            {% if data %}
+            <h1>Prediction Results</h1>
+            <div>
+                <h2>MT5 Closing Prices</h2>
+                <img src="data:image/png;base64,{{ data.mt5_plot }}" alt="MT5 Closing Prices" class="img-fluid">
+                <p>
+                <h4>Last Closing Price:</h4> {{ data.last_closing_price }}</p>
+            </div>
+
+            <div>
+                <h2>Currency Price Prediction</h2>
+                <img src="data:image/png;base64,{{ data.prediction_plot }}" alt="Currency Price Prediction"
+                    class="img-fluid">
+
+            </div>
+
+            <div>
+                <h2>Model Summary</h2>
+                <pre>{{ data.model_summary }}</pre>
+            </div>
+            <div>
+                <h2>Final Prediciton</h2>
+                <pre>{{data.Final_Prediction}}</pre>
+            </div>
+            <div>
+                <h2>Next Predicted Price</h2>
+                <pre>{{ data.next_prediction }}</pre>
+            </div>
+            <div>
+                <h2>Mean Absolute Percentage Error (MAPE)</h2>
+                <p>{{ data.mape }}</p>
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+
+    <button class="btn dark-light-button" onclick="toggleDarkLightMode()">
+        <div id="mode-toggle">
+            <i id="dark-mode-icon" class="fas fa-moon"></i>
+            <i id="light-mode-icon" class="far fa-sun" style="display:none"></i>
+        </div>
+    </button>
+    <script src="{% static 'script/script.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+
+</html>
